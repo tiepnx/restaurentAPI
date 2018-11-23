@@ -1,0 +1,9 @@
+﻿Step :
+1. Delete FA_Model.cs
+2. Create new data model (Database First) :
+ - FA_Model
+ - name in conection string : FA_Entities
+
+<connectionStrings>
+    <add name="FA_Entities" connectionString="data source=WIN-JR6QK46N57Q\SHAREPOINT2013;initial catalog=MEVN_FA;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
+</connectionStrings>

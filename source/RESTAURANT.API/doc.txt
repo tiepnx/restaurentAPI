@@ -1,0 +1,7 @@
+﻿https://www.infoworld.com/article/3207541/application-development/how-to-make-your-asp-net-web-api-responses-consistent-and-useful.html
+http://ericsmasal.com/2018/05/28/customize-asp-net-cores-identityuser/
+https://stackoverflow.com/questions/42791416/owin-claims-add-multiple-claimtypes-role
+
+react
+https://decembersoft.com/posts/what-is-the-right-way-to-do-asynchronous-operations-in-redux/
+https://viblo.asia/p/redux-middleware-redux-saga-gGJ59X7jlX2
