@@ -66,6 +66,12 @@
     <Compile Include="DBModel\Table.cs" />
     <Compile Include="DBModel\Type.cs" />
     <Compile Include="DBModel\Utility.cs" />
+    <Compile Include="IModifiedEntity.cs" />
+    <Compile Include="Migrations\201811240107560_RestaurentDB Schema.cs" />
+    <Compile Include="Migrations\201811240107560_RestaurentDB Schema.Designer.cs">
+      <DependentUpon>201811240107560_RestaurentDB Schema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelService\CategoryService.cs" />
     <Compile Include="ModelService\DetailService.cs" />
     <Compile Include="ModelService\ExceptService.cs" />
@@ -90,6 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811240107560_RestaurentDB Schema.resx">
+      <DependentUpon>201811240107560_RestaurentDB Schema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

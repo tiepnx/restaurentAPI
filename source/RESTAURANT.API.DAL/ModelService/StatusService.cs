@@ -26,7 +26,7 @@ namespace RESTAURANT.API.DAL.Services
             int? id = null;
             try
             {
-                Insert(ref item, userName);
+                AddUserProperty(ref item, userName);
                 SaveChanges();
                 id = item.ID;
             }
@@ -44,8 +44,10 @@ namespace RESTAURANT.API.DAL.Services
                 if (item == null)
                     return false;
                 var obj = ParseToItem(item, userName);
-                    SaveChanges();
-                    rs = true;
+                obj = (Status)MapData(obj, item);
+                AddUserProperty(ref obj, userName);
+                SaveChanges();
+                rs = true;
 
             }
             catch (System.Exception ex)

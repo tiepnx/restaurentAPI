@@ -1,6 +1,9 @@
 namespace RESTAURANT.API.DAL
 {
+    using System;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
 
     public partial class RestaurentModel : DbContext
     {
@@ -31,6 +34,38 @@ namespace RESTAURANT.API.DAL
             //    .HasForeignKey<int>(o => o.StatusId);
 
 
+        }
+
+        public override int SaveChanges()
+        {
+            HandleChangeTracking();
+            return base.SaveChanges();
+        }
+        private void HandleChangeTracking()
+        {
+            foreach (var entity in ChangeTracker.Entries()
+               .Where(e => e.State == EntityState.Added
+                   || e.State == EntityState.Modified))
+            {
+                UpdateTrackedEntity(entity);
+            }
+        }
+        /// <summary>
+        /// Looks at everything that has changed and
+        /// applies any further action if required.
+        /// </summary>
+        /// <param id="entityEntry""></param>
+        /// <returns></returns>
+        private static void UpdateTrackedEntity(DbEntityEntry entityEntry)
+        {
+            var trackUpdateClass = entityEntry.Entity as IModifiedEntity;
+            if (trackUpdateClass == null) return;
+            trackUpdateClass.Modified = DateTime.UtcNow;
+            if (entityEntry.State == EntityState.Added)
+            {
+                //trackUpdateClass.rowguid = Guid.NewGuid();
+                trackUpdateClass.Created = DateTime.UtcNow;
+            }
         }
     }
 }

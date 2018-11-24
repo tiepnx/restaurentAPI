@@ -49,19 +49,44 @@ namespace RESTAURANT.API.DAL.Services
             _table.Add(obj);
         }
 
+        public void AddUserProperty(ref T obj, string userName)
+        {
+            PropertyInfo info = obj.GetType().GetProperty("ID");
+            int id = (int)info.GetValue(obj, null);
+            if (id > 0)
+            {
+                info = obj.GetType().GetProperty("ModifiedBy");
+                if (info != null)
+                    info.SetValue(obj, userName);
+            }
+            else
+            {
+                info = obj.GetType().GetProperty("CreatedBy");
+                if (info != null)
+                    info.SetValue(obj, userName);
+            }
+            if (id <= 0)
+                _table.Add(obj);
+        }
         public void Insert(ref T obj, string userName)
         {
-            PropertyInfo info = obj.GetType().GetProperty("CreateDate");
-            if (info != null)
-                info.SetValue(obj, DateTime.Now);
+            PropertyInfo info = obj.GetType().GetProperty("ID");
 
-            info = obj.GetType().GetProperty("UserCreate");
-            if (info != null)
-                info.SetValue(obj, userName);
+            if (info != null && (int)info.GetValue(obj, null) > 0)
+            {
+                info = obj.GetType().GetProperty("ModifiedBy");
+                if (info != null)
+                    info.SetValue(obj, userName);
+            }
+            else
+            {
+                info = obj.GetType().GetProperty("CreatedBy");
+                if (info != null)
+                    info.SetValue(obj, userName);
+            }
 
             _table.Add(obj);
         }
-
         public void Update(T obj)
         {
             PropertyInfo info = obj.GetType().GetProperty("UpdateDate");
@@ -124,14 +149,20 @@ namespace RESTAURANT.API.DAL.Services
         {
             _db.SaveChanges();
         }
+        public object MapData(object destination, object source)
+        {
+            PropertyInfo s = source.GetType().GetProperty("Title");
+            PropertyInfo d = destination.GetType().GetProperty("Title");
+            d.SetValue(destination, s.GetValue(source, null));
 
+            s = source.GetType().GetProperty("Note");
+            d = destination.GetType().GetProperty("Note");
+            d.SetValue(destination, s.GetValue(source, null));
+            return destination;
+        }
         public void Dispose()
         {
             this._db.Dispose();
         }
-
-       
-
-       
     }
 }
