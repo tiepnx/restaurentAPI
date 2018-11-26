@@ -9,16 +9,16 @@ namespace RESTAURANT.API.DAL.Services
 
         public List<Kind> GetList()
         {
-            List<Kind> listView = null;
+            List<Kind> items = null;
             try
             {
-                listView = _db.Kind.ToList();
+                items = _db.Kind.ToList();
             }
             catch (System.Exception ex)
             {
                 throw ex;
             }
-            return listView;
+            return items;
         }
 
         public int? Insert(Kind item, string userName=null)
@@ -26,7 +26,8 @@ namespace RESTAURANT.API.DAL.Services
             int? id = null;
             try
             {
-                Insert(ref item, userName);
+                AddUserProperty(ref item, userName);
+                //Insert(ref item, userName);
                 SaveChanges();
                 id = item.ID;
             }
@@ -41,12 +42,12 @@ namespace RESTAURANT.API.DAL.Services
             bool rs = false;
             try
             {
-                if (item == null)
-                    return false;
+                if (item == null) return false;
                 var obj = ParseToItem(item, userName);
-                    SaveChanges();
-                    rs = true;
-
+                obj = (Kind)MapData(obj, item);
+                AddUserProperty(ref obj, userName);
+                SaveChanges();
+                rs = true;
             }
             catch (System.Exception ex)
             {
@@ -54,14 +55,16 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(int itemId, string userName)
+        public bool Delete(Kind item, string userName)
         {
             bool rs = false;
             try
             {
-                Delete(itemId, userName);
+                if (item == null) return false;
+                var obj = ParseToItem(item, userName);
+                obj.Deleted = true;
+                AddUserProperty(ref obj, userName);
                 SaveChanges();
-                rs = true;
             }
             catch (System.Exception ex)
             {

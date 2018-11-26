@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -26,7 +27,10 @@ namespace RESTAURANT.API.DAL.Services
             int? id = null;
             try
             {
-                Insert(ref item, userName);
+                AddUserProperty(ref item, userName);
+                _db.Entry(item.Table).State = EntityState.Unchanged;
+                _db.Entry(item.Status).State = EntityState.Unchanged;
+                _db.Entry(item.Details).State = EntityState.Unchanged;
                 SaveChanges();
                 id = item.ID;
             }

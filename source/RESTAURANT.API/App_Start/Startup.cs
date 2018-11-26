@@ -104,7 +104,7 @@ namespace RESTAURANT.API
                 };
                 
 
-                string userPWD = "!@(:)Restaurent";
+                string userPWD = "pass@word1";
                 var chkUser = UserManager.Create(user, userPWD);
 
                 //Add default User to Role Admin

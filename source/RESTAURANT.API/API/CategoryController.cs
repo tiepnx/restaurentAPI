@@ -12,17 +12,17 @@ namespace RESTAURANT.API.API
     public class CategoryController : ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
         public IHttpActionResult GetList()
         {
-            List<Category> listView = null;
+            List<Category> items = null;
 
             using (CategoryService sv = new CategoryService())
             {
-                listView = sv.GetList();
+                items = sv.GetList();
             }
-            return Ok(new { listView });
+            return Ok(new { items });
         }
         [Authorize]
         [HttpPost]
@@ -35,6 +35,27 @@ namespace RESTAURANT.API.API
                 id = sv.Insert(item, HttpContext.Current.User.Identity.Name);
             }
             return Ok(new { id });
+        }
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Put(Category item)
+        {
+            using (CategoryService svc = new CategoryService())
+            {
+                svc.Update(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+
+        }
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(Category item)
+        {
+            using (CategoryService svc = new CategoryService())
+            {
+                svc.Delete(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
         }
     }
 }

@@ -41,14 +41,12 @@ namespace RESTAURANT.API.DAL.Services
             bool rs = false;
             try
             {
-                if (item == null)
-                    return false;
+                if (item == null) return false;
                 var obj = ParseToItem(item, userName);
                 obj = (Status)MapData(obj, item);
                 AddUserProperty(ref obj, userName);
                 SaveChanges();
                 rs = true;
-
             }
             catch (System.Exception ex)
             {
@@ -56,14 +54,16 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(int itemId, string userName)
+        public bool Delete(Status item, string userName)
         {
             bool rs = false;
             try
             {
-                Delete(itemId, userName);
+                if (item == null) return false;
+                var obj = ParseToItem(item, userName);
+                obj.Deleted = true;
+                AddUserProperty(ref obj, userName);
                 SaveChanges();
-                rs = true;
             }
             catch (System.Exception ex)
             {
@@ -86,33 +86,33 @@ namespace RESTAURANT.API.DAL.Services
             return entity;
         }
 
-        public bool  Submit(List<Status> lst, string userName)
-        {
-            foreach(var item in lst)
-            {
-                if (!_db.Status.Any(x => x.ID == item.ID))
-                {
-                    var ret = item;
-                    Insert(ref ret, userName);
-                }
-            }
-            SaveChanges();
-            return true;
-        }
+        //public bool  Submit(List<Status> lst, string userName)
+        //{
+        //    foreach(var item in lst)
+        //    {
+        //        if (!_db.Status.Any(x => x.ID == item.ID))
+        //        {
+        //            var ret = item;
+        //            Insert(ref ret, userName);
+        //        }
+        //    }
+        //    SaveChanges();
+        //    return true;
+        //}
 
-        public bool ConfirmImportData(string userName)
-        {
-            try
-            {
-                var sUserName = new SqlParameter("@userName", userName);
-                string strSql = "EXEC storename @userName";
-                _db.Database.ExecuteSqlCommand(strSql, sUserName);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
-            return true;
-        }
+        //public bool ConfirmImportData(string userName)
+        //{
+        //    try
+        //    {
+        //        var sUserName = new SqlParameter("@userName", userName);
+        //        string strSql = "EXEC storename @userName";
+        //        _db.Database.ExecuteSqlCommand(strSql, sUserName);
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return true;
+        //}
     }
 }

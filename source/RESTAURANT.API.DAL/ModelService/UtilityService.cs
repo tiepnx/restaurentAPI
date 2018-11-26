@@ -9,16 +9,16 @@ namespace RESTAURANT.API.DAL.Services
 
         public List<Utility> GetList()
         {
-            List<Utility> listView = null;
+            List<Utility> items = null;
             try
             {
-                listView = _db.Utility.ToList();
+                items = _db.Utility.ToList();
             }
             catch (System.Exception ex)
             {
                 throw ex;
             }
-            return listView;
+            return items;
         }
 
         public int? Insert(Utility item, string userName=null)
@@ -26,7 +26,7 @@ namespace RESTAURANT.API.DAL.Services
             int? id = null;
             try
             {
-                Insert(ref item, userName);
+                AddUserProperty(ref item, userName);
                 SaveChanges();
                 id = item.ID;
             }
@@ -41,11 +41,12 @@ namespace RESTAURANT.API.DAL.Services
             bool rs = false;
             try
             {
-                if (item == null)
-                    return false;
+                if (item == null) return false;
                 var obj = ParseToItem(item, userName);
-                    SaveChanges();
-                    rs = true;
+                obj = (Utility)MapData(obj, item);
+                AddUserProperty(ref obj, userName);
+                SaveChanges();
+                rs = true;
 
             }
             catch (System.Exception ex)
@@ -54,14 +55,16 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(int itemId, string userName)
+        public bool Delete(Utility item, string userName)
         {
             bool rs = false;
             try
             {
-                Delete(itemId, userName);
+                if (item == null) return false;
+                var obj = ParseToItem(item, userName);
+                obj.Deleted = true;
+                AddUserProperty(ref obj, userName);
                 SaveChanges();
-                rs = true;
             }
             catch (System.Exception ex)
             {
@@ -83,34 +86,6 @@ namespace RESTAURANT.API.DAL.Services
             }
             return entity;
         }
-
-        public bool  Submit(List<Utility> lst, string userName)
-        {
-            foreach(var item in lst)
-            {
-                if (!_db.Utility.Any(x => x.ID == item.ID))
-                {
-                    var ret = item;
-                    Insert(ref ret, userName);
-                }
-            }
-            SaveChanges();
-            return true;
-        }
-
-        public bool ConfirmImportData(string userName)
-        {
-            try
-            {
-                var sUserName = new SqlParameter("@userName", userName);
-                string strSql = "EXEC storename @userName";
-                _db.Database.ExecuteSqlCommand(strSql, sUserName);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
-            return true;
-        }
+        
     }
 }

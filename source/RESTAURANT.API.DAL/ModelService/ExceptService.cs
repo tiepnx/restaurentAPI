@@ -26,7 +26,7 @@ namespace RESTAURANT.API.DAL.Services
             int? id = null;
             try
             {
-                Insert(ref item, userName);
+                AddUserProperty(ref item, userName);
                 SaveChanges();
                 id = item.ID;
             }
@@ -41,12 +41,12 @@ namespace RESTAURANT.API.DAL.Services
             bool rs = false;
             try
             {
-                if (item == null)
-                    return false;
+                if (item == null) return false;
                 var obj = ParseToItem(item, userName);
-                    SaveChanges();
-                    rs = true;
-
+                obj = (Except)MapData(obj, item);
+                AddUserProperty(ref obj, userName);
+                SaveChanges();
+                rs = true;
             }
             catch (System.Exception ex)
             {
@@ -54,14 +54,16 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(int itemId, string userName)
+        public bool Delete(Except item, string userName)
         {
             bool rs = false;
             try
             {
-                Delete(itemId, userName);
+                if (item == null) return false;
+                var obj = ParseToItem(item, userName);
+                obj.Deleted = true;
+                AddUserProperty(ref obj, userName);
                 SaveChanges();
-                rs = true;
             }
             catch (System.Exception ex)
             {

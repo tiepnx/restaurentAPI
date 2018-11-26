@@ -5,3 +5,18 @@ https://stackoverflow.com/questions/42791416/owin-claims-add-multiple-claimtypes
 react
 https://decembersoft.com/posts/what-is-the-right-way-to-do-asynchronous-operations-in-redux/
 https://viblo.asia/p/redux-middleware-redux-saga-gGJ59X7jlX2
+React/Redux Tips: Better Way to Handle Loading Flags in Your Reducers
+https://medium.com/stashaway-engineering/react-redux-tips-better-way-to-handle-loading-flags-in-your-reducers-afda42a804c6
+React — Composing Higher-Order Components (HOCs)
+https://medium.com/dailyjs/react-composing-higher-order-components-hocs-3a5288e78f55
+Higher-Order Components (HOCs) for Beginners
+https://hackernoon.com/higher-order-components-hocs-for-beginners-25cdcf1f1713
+Debouncing and Throttling Explained Through Examples
+https://css-tricks.com/debouncing-throttling-explained-examples/
+
+
+Update an Existing Database using Code First Migrations with ASP.NET and Entity Framework
+https://www.tutorialspoint.com/entity_framework/entity_framework_code_first_migration.htm
+https://weblog.west-wind.com/posts/2016/Jan/13/Resetting-Entity-Framework-Migrations-to-a-clean-Slate#Summary
+Using Entity Framework With an Existing Database: Data Access
+https://www.red-gate.com/simple-talk/dotnet/net-framework/using-entity-framework-with-an-existing-database-data-access/

@@ -68,6 +68,17 @@ namespace RESTAURANT.API.DAL.Services
             if (id <= 0)
                 _table.Add(obj);
         }
+        public object MapData(object destination, object source)
+        {
+            PropertyInfo s = source.GetType().GetProperty("Title");
+            PropertyInfo d = destination.GetType().GetProperty("Title");
+            d.SetValue(destination, s.GetValue(source, null));
+
+            s = source.GetType().GetProperty("Note");
+            d = destination.GetType().GetProperty("Note");
+            d.SetValue(destination, s.GetValue(source, null));
+            return destination;
+        }
         public void Insert(ref T obj, string userName)
         {
             PropertyInfo info = obj.GetType().GetProperty("ID");
@@ -110,7 +121,7 @@ namespace RESTAURANT.API.DAL.Services
             _table.Attach(obj);
             _db.Entry(obj).State = EntityState.Modified;
         }
-
+       
         public void DeleteMark(object id, string userName)
         {
             T obj = _table.Find(id);
@@ -149,17 +160,7 @@ namespace RESTAURANT.API.DAL.Services
         {
             _db.SaveChanges();
         }
-        public object MapData(object destination, object source)
-        {
-            PropertyInfo s = source.GetType().GetProperty("Title");
-            PropertyInfo d = destination.GetType().GetProperty("Title");
-            d.SetValue(destination, s.GetValue(source, null));
-
-            s = source.GetType().GetProperty("Note");
-            d = destination.GetType().GetProperty("Note");
-            d.SetValue(destination, s.GetValue(source, null));
-            return destination;
-        }
+        
         public void Dispose()
         {
             this._db.Dispose();

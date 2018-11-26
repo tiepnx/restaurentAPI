@@ -12,17 +12,17 @@ namespace RESTAURANT.API.API
     public class UtilityController: ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
         public IHttpActionResult GetList()
         {
-            List<Utility> listView = null;
+            List<Utility> items = null;
 
             using (UtilityService svc = new UtilityService())
             {
-                listView = svc.GetList();
+                items = svc.GetList();
             }
-            return Ok(new { listView });
+            return Ok(new { items });
         }
         [Authorize]
         [HttpPost]
@@ -35,6 +35,28 @@ namespace RESTAURANT.API.API
                 id = svc.Insert(item, HttpContext.Current.User.Identity.Name);
             }
             return Ok(new { id });
+        }
+        
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Put(Utility item)
+        {
+            using (UtilityService svc = new UtilityService())
+            {
+                svc.Update(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+
+        }
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(Utility item)
+        {
+            using (UtilityService svc = new UtilityService())
+            {
+                svc.Delete(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
         }
     }
 }

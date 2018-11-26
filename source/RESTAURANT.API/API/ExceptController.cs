@@ -12,17 +12,17 @@ namespace RESTAURANT.API.API
     public class ExceptController: ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
         public IHttpActionResult GetList()
         {
-            List<Except> listView = null;
+            List<Except> items = null;
 
             using (ExceptService svc = new ExceptService())
             {
-                listView = svc.GetList();
+                items = svc.GetList();
             }
-            return Ok(new { listView });
+            return Ok(new { items });
         }
         [Authorize]
         [HttpPost]
@@ -35,6 +35,27 @@ namespace RESTAURANT.API.API
                 id = svc.Insert(item, HttpContext.Current.User.Identity.Name);
             }
             return Ok(new { id });
+        }
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Put(Except item)
+        {
+            using (ExceptService svc = new ExceptService())
+            {
+                svc.Update(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+
+        }
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(Except item)
+        {
+            using (ExceptService svc = new ExceptService())
+            {
+                svc.Delete(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
         }
     }
 }

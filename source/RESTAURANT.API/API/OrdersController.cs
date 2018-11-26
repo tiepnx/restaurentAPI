@@ -26,7 +26,7 @@ namespace RESTAURANT.API.API
         }
         [Authorize]
         [HttpPost]
-        public IHttpActionResult Post(Order item, Table table, Status status)
+        public IHttpActionResult Post(Order item)
         {
             int? id = null;
             

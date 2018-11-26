@@ -12,7 +12,7 @@ namespace RESTAURANT.API.API
     public class StatusController: ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
         public IHttpActionResult GetList()
         {
@@ -36,5 +36,27 @@ namespace RESTAURANT.API.API
             }
             return Ok(new { id });
         }
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Put(Status item)
+        {
+            using (StatusService svc = new StatusService())
+            {
+                svc.Update(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+
+        }
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(Status item)
+        {
+            using (StatusService svc = new StatusService())
+            {
+                svc.Delete(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+        }
+        
     }
 }

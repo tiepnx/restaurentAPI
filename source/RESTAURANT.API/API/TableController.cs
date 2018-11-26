@@ -12,7 +12,7 @@ namespace RESTAURANT.API.API
     public class TableController : ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
         public IHttpActionResult GetList()
         {
@@ -35,6 +35,27 @@ namespace RESTAURANT.API.API
                 id = tsv.Insert(item, HttpContext.Current.User.Identity.Name);
             }
             return Ok(new { id });
+        }
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Put(Table item)
+        {
+            using (TableService svc = new TableService())
+            {
+                svc.Update(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
+
+        }
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(Table item)
+        {
+            using (TableService svc = new TableService())
+            {
+                svc.Delete(item, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(item);
         }
     }
 }
