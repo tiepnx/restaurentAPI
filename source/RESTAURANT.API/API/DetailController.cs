@@ -16,13 +16,13 @@ namespace RESTAURANT.API.API
 
         public IHttpActionResult GetList()
         {
-            List<Detail> listView = null;
+            List<Detail> items = null;
 
             using (DetailService svc = new DetailService())
             {
-                listView = svc.GetList();
+                items = svc.GetList();
             }
-            return Ok(new { listView });
+            return Ok(new { items });
         }
         [Authorize]
         [HttpPost]
