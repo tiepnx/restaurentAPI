@@ -115,10 +115,6 @@ namespace RESTAURANT.API
                     UserManager.AddToRole(user.Id, "Admin");
                 }
             }
-
-           
-
-          
         }
     }
 }
