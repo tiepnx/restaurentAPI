@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,7 +14,11 @@ namespace RESTAURANT.API.DAL.Services
             List<Order> listView = null;
             try
             {
+                bool flag = _db.Configuration.ProxyCreationEnabled;
+                _db.Configuration.ProxyCreationEnabled = false;
+                //listView = _db.Orders.Include(x => x.Details).ToList();
                 listView = _db.Orders.ToList();
+                _db.Configuration.ProxyCreationEnabled = flag;
             }
             catch (System.Exception ex)
             {
@@ -21,24 +26,39 @@ namespace RESTAURANT.API.DAL.Services
             }
             return listView;
         }
-
-        public int? Insert(Order item, string userName=null)
+        public Order Get(Guid rowId)
         {
-            int? id = null;
+            Order itm = null;
             try
             {
-                AddUserProperty(ref item, userName);
-                _db.Entry(item.Table).State = EntityState.Unchanged;
-                _db.Entry(item.Status).State = EntityState.Unchanged;
-                _db.Entry(item.Details).State = EntityState.Unchanged;
-                SaveChanges();
-                id = item.ID;
+                bool flag = _db.Configuration.ProxyCreationEnabled;
+                _db.Configuration.ProxyCreationEnabled = false;
+                itm = _db.Orders.Where(x=>x.RowGuid == rowId).Include(x => x.Details).Single();                
+                _db.Configuration.ProxyCreationEnabled = flag;
             }
             catch (System.Exception ex)
             {
                 throw ex;
             }
-            return id;
+            return itm;
+        }
+        public Guid? Insert(Order item, string userName=null)
+        {
+            Guid? rowGuid = null;
+            try
+            {
+                AddUserProperty(ref item, userName);
+                _db.Entry(item.Table).State = EntityState.Unchanged;
+                _db.Entry(item.Status).State = EntityState.Unchanged;
+                //_db.Entry(item.Details).State = EntityState.Unchanged;
+                SaveChanges();
+                rowGuid = item.RowGuid;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+            return rowGuid;
         }
         public bool Update(Order item,string userName=null)
         {
