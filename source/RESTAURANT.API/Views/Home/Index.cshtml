@@ -8,7 +8,7 @@
         </div>
         <div class="text-slogan">
             <h1>CHÍNH XÁC - TIẾT KIỆM - HIỆU QUẢ</h1>
-            <h2>Hệ thống quản lý gọi thức ăn <br /> (Order Food sytem - OFS)</h2>
+            <h2>Hệ thống quản lý gọi thức ăn <br /> (Order Food Sytem - OFS)</h2>
             <a href="#" class="btn btn-primary btn-test">Trải nghiệm cùng hệ thống</a>
         </div>
     </div>
@@ -57,7 +57,41 @@
                     <p>Hãy đăng ký tài khoản với chúng tôi và trải nghiệm cùng OFS, tất cả là miễn phí.</p>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6">
-                    <h3>Form:</h3>
+                    <form action="/action_page.php">
+                        <div class="register-form">
+                            <h3>Register</h3>
+                            <div class="row">
+                                <p>Please fill in this form to create an account.</p>
+                            </div>
+                            <div class="row">
+                                <label for="username"><b>Username</b></label>
+                                <input type="text" placeholder="" name="username" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-sm-6 col-md-6 paddingL">
+                                    <label for="email"><b>Email</b></label>
+                                    <input type="text" placeholder="" name="email" required>
+                                    <label for="psw"><b>Password</b></label>
+                                    <input type="password" placeholder="" name="psw" required>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-6 paddingR">
+                                    <label for="phone"><b>Phone</b></label>
+                                    <input type="text" placeholder="" name="phone" required>
+                                    <label for="psw-repeat"><b>Repeat Password</b></label>
+                                    <input type="password" placeholder="" name="psw-repeat" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="address"><b>Address</b></label>
+                                <input type="text" placeholder="" name="address">
+                            </div>
+                            <div class="row btn-register">
+                                <p>By creating an account, you agree to our <a href="#">Terms & Privacy</a>.</p>
+                                <a href="#" class="btn btn-primary">Register</a>
+                                <p>Already have an account? <a href="#">Sign in</a>.</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
