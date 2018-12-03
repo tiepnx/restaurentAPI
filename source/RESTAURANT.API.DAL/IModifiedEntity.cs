@@ -13,7 +13,7 @@ namespace RESTAURANT.API.DAL
     {
         System.Nullable<DateTime> Modified { get; set; }
         System.Nullable<DateTime> Created { get; set; }
-        //Guid rowguid { get; set; }
+        System.Nullable<Guid> RowGuid { get; set; }
         string CreatedBy { get; set; }
         string ModifiedBy { get; set; }
         System.Nullable<Boolean> Deleted { get; set; }

@@ -12,9 +12,9 @@ namespace RESTAURANT.API.API
     public class OrderController: ApiController
     {
         [HttpGet]
-        [Route("GetList")]
+        [Route("items")]
 
-        public IHttpActionResult GetList()
+        public IHttpActionResult Gets()
         {
             List<Order> items = null;
 
@@ -24,17 +24,30 @@ namespace RESTAURANT.API.API
             }
             return Ok(new { items });
         }
+        [HttpGet]
+        [Route("items/{rowId}")]
+
+        public IHttpActionResult Get(Guid rowId)
+        {
+            Order item = null;
+
+            using (OrderService svc = new OrderService())
+            {
+                item = svc.Get(rowId);
+            }
+            return Ok(new { item });
+        }
         [Authorize]
         [HttpPost]
         public IHttpActionResult Post(Order item)
         {
-            int? id = null;
+            Guid? rowGuid = null;
             
             using (OrderService svc = new OrderService())
             {
-                id = svc.Insert(item, HttpContext.Current.User.Identity.Name);
+                rowGuid = svc.Insert(item, HttpContext.Current.User.Identity.Name);
             }
-            return Ok(new { id });
+            return Ok(new { rowGuid });
         }
     }
 }

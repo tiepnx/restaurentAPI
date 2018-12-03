@@ -282,6 +282,21 @@
     <Compile Include="Service_Base\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap.css" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap.min.css" />
+    <Content Include="Content\images\bg1.jpg" />
+    <Content Include="Content\images\bg2.jpg" />
+    <Content Include="Content\images\circle.png" />
+    <Content Include="Content\images\focus.png" />
+    <Content Include="Content\images\focus2.png" />
+    <Content Include="Content\images\food-order-icon-5.jpg" />
+    <Content Include="Content\images\system-transparent.png" />
+    <Content Include="Content\images\system.jpg" />
+    <Content Include="Content\site.css" />
     <Content Include="doc.txt" />
     <Content Include="favicon.ico" />
     <Content Include="ApplicationInsights.config">
@@ -310,6 +325,13 @@
     <Content Include="ExLogger\log4net.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\bootstrap-4.0.0.zip" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-4.0.0\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -61,6 +61,9 @@ namespace RESTAURANT.API.DAL.Services
             }
             else
             {
+                info = obj.GetType().GetProperty("RowGuid");
+                if (info != null)
+                    info.SetValue(obj, Guid.NewGuid());
                 info = obj.GetType().GetProperty("CreatedBy");
                 if (info != null)
                     info.SetValue(obj, userName);
