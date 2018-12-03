@@ -21,7 +21,7 @@ namespace RESTAURANT.API
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-4.0.0/bootstrap.min.css",
                       "~/Content/site.css"));
         }
     }
