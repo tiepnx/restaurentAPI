@@ -21,7 +21,7 @@ namespace RESTAURANT.API.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<Detail> Details { get; set; }
         public DbSet<Table> Table { get; set; }
-
+        public DbSet<OFS> OFS { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Detail>()

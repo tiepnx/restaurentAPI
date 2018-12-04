@@ -53,19 +53,6 @@ namespace RESTAURANT.API
                 {
                     return errorResult;
                 }
-                //else
-                //{
-                //    var securityUserFactory = new SecurityUserFactory();
-                //    securityUserFactory.CreatedBy = System.Web.HttpContext.Current.User.Identity.Name.ToString();
-                //    securityUserFactory.UserName = userModel.UserName;
-                //    securityUserFactory.MaNhaMay = userModel.MaOrg;
-                //    securityUserFactory.IsAdmin = userModel.IsAdmin;
-                //    using (var svc = new SecurityUserFactoryService())
-                //    {
-                //        svc.Insert(securityUserFactory, securityUserFactory.CreatedBy);
-                //    }
-
-                //}
                 return Ok(result);
             }
             return Ok();

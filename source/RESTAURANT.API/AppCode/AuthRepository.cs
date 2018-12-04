@@ -6,6 +6,8 @@ using RESTAURANT.API.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using RESTAURANT.API.Models;
+using RESTAURANT.API.DAL.Services;
+using RESTAURANT.API.DAL;
 //using RESTAURANT.API.DAL;
 //using RESTAURANT.API.DAL.Services;
 
@@ -33,14 +35,21 @@ namespace RESTAURANT.API.AppCode
             //    Email = userModel.Email,
             //    PhoneNumber = userModel.PhoneNumber,
             //};
+            Guid ofsKey = Guid.NewGuid();
             RestaurentUser user = new RestaurentUser
             {
                 UserName = userModel.UserName,
                 Email = userModel.Email,
-                PhoneNumber = userModel.PhoneNumber
+                PhoneNumber = userModel.PhoneNumber,
+                OFSKey = ofsKey
             };
+            
             var result = await _userManager.CreateAsync(user, userModel.Password);
             _userManager.AddToRole(user.Id, "Admin");
+            user.OFSKey = ofsKey;
+            OFS ofs = new OFS(ofsKey);
+            OFSService ofsSv = new OFSService();
+            ofsSv.Insert(ofs, user.UserName);
             return result;
         }
 
@@ -64,14 +73,16 @@ namespace RESTAURANT.API.AppCode
             //}
 
             //IdentityUser user = _userManager.FindById(userModel.Id);
+            
             RestaurentUser user = _userManager.FindById(userModel.Id);
             user.Email = userModel.Email;
             user.PhoneNumber = userModel.PhoneNumber;
+            
             if (userModel.Password != null&& userModel.Password.Length>=6 &&(userModel.Password.Equals(userModel.ConfirmPassword))){
                 _userManager.RemovePassword(userModel.Id);
                 _userManager.AddPassword(userModel.Id, userModel.Password);
             }
-            var result = await _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);            
             return result;
         }
 

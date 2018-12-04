@@ -42,6 +42,12 @@ namespace RESTAURANT.API.Provider
         //    context.Validated(identity);
 
         //}
+        //public static string GetOrganizationId(this IIdentity identity)
+        //{
+        //    var claim = ((ClaimsIdentity)identity).FindFirst("OrganizationId");
+        //    // Test for null to avoid issues during local testing
+        //    return (claim != null) ? claim.Value : string.Empty;
+        //}
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
@@ -65,19 +71,22 @@ namespace RESTAURANT.API.Provider
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim("sub", context.UserName));
-
+            //identity.AddClaim(new Claim("sub", context.UserName));
             //identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
 
-            
+
             var manager = new UserManager<RestaurentUser>(new UserStore<RestaurentUser>(new AuthContext()));
             var userRoles = manager.GetRoles(user.Id);
+            
             List<string> roles = new List<string>();
             foreach (string roleName in userRoles)
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, roleName));            
             }
-            
+            var currentUser = manager.FindById(user.Id);
+            string _ofs = string.Empty;
+            _ofs = currentUser.OFSKey.ToString();
+            identity.AddClaim(new Claim("ofs", _ofs));
             //var additionalData = new AuthenticationProperties(new Dictionary<string, string>{
             //    {
             //        "role", Newtonsoft.Json.JsonConvert.SerializeObject(userRoles)
@@ -93,6 +102,9 @@ namespace RESTAURANT.API.Provider
                     },
                     {
                         "userId", user.Id
+                    },
+                    {
+                        "ofs", _ofs.ToString()
                     }
                     //,{
                     //     "isAdmin",isAdmin.ToString()

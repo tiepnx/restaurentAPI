@@ -258,6 +258,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="helpers\Common.cs" />
     <Compile Include="helpers\CustomResponseHandler.cs" />
     <Compile Include="Models\RestaurentUser.cs" />
     <Compile Include="Models\CheckLotNumber.cs" />

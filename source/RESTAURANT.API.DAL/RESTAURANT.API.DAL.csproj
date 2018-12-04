@@ -60,6 +60,7 @@
     <Compile Include="DBModel\Except.cs" />
     <Compile Include="DBModel\Exception.cs" />
     <Compile Include="DBModel\Kind.cs" />
+    <Compile Include="DBModel\OFS.cs" />
     <Compile Include="DBModel\Order.cs" />
     <Compile Include="DBModel\RestaurantBase.cs" />
     <Compile Include="DBModel\Status.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DBModel\Type.cs" />
     <Compile Include="DBModel\Utility.cs" />
     <Compile Include="IModifiedEntity.cs" />
+    <Compile Include="ModelService\OFSServices.cs" />
     <Compile Include="ModelService\CategoryService.cs" />
     <Compile Include="ModelService\DetailService.cs" />
     <Compile Include="ModelService\ExceptService.cs" />

@@ -1,8 +1,11 @@
 ﻿using RESTAURANT.API.DAL;
 using RESTAURANT.API.DAL.Services;
+using RESTAURANT.API.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -13,14 +16,15 @@ namespace RESTAURANT.API.API
     {
         [HttpGet]
         [Route("items")]
-
+        [Authorize]
         public IHttpActionResult GetList()
         {
             List<Status> items = null;
 
             using (StatusService svc = new StatusService())
             {
-                items = svc.GetList();
+                var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
+                items = svc.GetList(ofs);
             }
             return Ok(new { items });
         }
@@ -28,8 +32,9 @@ namespace RESTAURANT.API.API
         [HttpPost]
         public IHttpActionResult Post(Status item)
         {
+            var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
             int? id = null;
-            
+            item.RowGuid = ofs;
             using (StatusService svc = new StatusService())
             {
                 id = svc.Insert(item, HttpContext.Current.User.Identity.Name);

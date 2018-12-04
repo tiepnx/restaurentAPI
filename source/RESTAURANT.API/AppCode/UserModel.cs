@@ -28,7 +28,7 @@ namespace RESTAURANT.API.AppCode
         [Display(Name = "ClientID")]
         public string ClientID { get; set; }
 
-        public string MaOrg { get; set; }
+        //public string MaOrg { get; set; }
 
         public bool IsAdmin { get; set; }
         public string Id { get; set; }

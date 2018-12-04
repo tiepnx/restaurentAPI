@@ -22,5 +22,6 @@ namespace RESTAURANT.API.Models
         public System.Nullable<DateTime> UpdateDate { get; set; }
         [StringLength(250)]
         public string UserUpdate { get; set; }
+        public System.Nullable<Guid> OFSKey { get; set; }
     }
 }

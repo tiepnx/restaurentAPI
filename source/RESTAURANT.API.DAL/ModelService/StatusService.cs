@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -7,12 +8,12 @@ namespace RESTAURANT.API.DAL.Services
     public class StatusService : GenericService<Status>
     {
 
-        public List<Status> GetList()
+        public List<Status> GetList(Guid ofs)
         {
             List<Status> listView = null;
             try
             {
-                listView = _db.Status.ToList();
+                listView = _db.Status.Where(x => x.RowGuid == ofs).ToList();
             }
             catch (System.Exception ex)
             {

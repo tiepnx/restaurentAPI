@@ -1,31 +1,45 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RESTAURANT.API.DAL.Services
 {
-    public class CategoryService : GenericService<Category>
+    public class OFSService : GenericService<OFS>
     {
-        public List<Category> GetList()
+        public List<OFS> Gets()
         {
-            List<Category> listView = null;
+            List<OFS> items = null;
             try
             {
-                listView = _db.Category.ToList();
+                items = _db.OFS.ToList();
             }
             catch (System.Exception ex)
             {
                 throw ex;
             }
-            return listView;
+            return items;
         }
-
-        public int? Insert(Category item, string userName=null)
+        public OFS Get(Guid OFSKey)
+        {
+            OFS item = null;
+            try
+            {
+                item = _db.OFS.Where(x => x.RowGuid == OFSKey).Single();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+            return item;
+        }
+        public int? Insert(OFS item, string userName=null)
         {
             int? id = null;
             try
             {
+                Guid tmp = item.RowGuid.Value;
                 AddUserProperty(ref item, userName);
+                item.RowGuid = tmp;
                 SaveChanges();
                 id = item.ID;
             }
@@ -35,14 +49,14 @@ namespace RESTAURANT.API.DAL.Services
             }
             return id;
         }
-        public bool Update(Category item,string userName=null)
+        public bool Update(OFS item,string userName=null)
         {
             bool rs = false;
             try
             {
                 if (item == null) return false;
                 var obj = ParseToItem(item, userName);
-                obj = (Category)MapData(obj, item);
+                obj = (OFS)MapData(obj, item);
                 AddUserProperty(ref obj, userName);
                 SaveChanges();
                 rs = true;
@@ -53,7 +67,7 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(Category item, string userName)
+        public bool Delete(OFS item, string userName)
         {
             bool rs = false;
             try
@@ -70,13 +84,13 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        internal Category ParseToItem(Category dto, string userName)
+        internal OFS ParseToItem(OFS dto, string userName)
         {
             if (dto == null) return null;
-            Category entity = null;
+            OFS entity = null;
             if (dto.ID != 0)
             {
-                entity = _db.Category.SingleOrDefault(x => x.ID == dto.ID);
+                entity = _db.OFS.SingleOrDefault(x => x.ID == dto.ID);
                 if (entity == null)
                 {
                     return dto;
@@ -84,5 +98,8 @@ namespace RESTAURANT.API.DAL.Services
             }
             return entity;
         }
+
+
+       
     }
 }
