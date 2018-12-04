@@ -13,7 +13,7 @@ namespace RESTAURANT.API.DAL.Services
             List<Status> listView = null;
             try
             {
-                listView = _db.Status.Where(x => x.RowGuid == ofs).ToList();
+                listView = _db.Status.Where(x => x.OfsKey == ofs).ToList();
             }
             catch (System.Exception ex)
             {

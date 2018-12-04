@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -7,12 +8,12 @@ namespace RESTAURANT.API.DAL.Services
     public class ExceptService : GenericService<Except>
     {
 
-        public List<Except> GetList()
+        public List<Except> GetList(Guid ofs)
         {
             List<Except> listView = null;
             try
             {
-                listView = _db.Except.ToList();
+                listView = _db.Except.Where(x=>x.OfsKey==ofs).ToList();
             }
             catch (System.Exception ex)
             {

@@ -9,7 +9,7 @@ namespace RESTAURANT.API.DAL.Services
     public class OrderService : GenericService<Order>
     {
 
-        public List<Order> GetList()
+        public List<Order> GetList(Guid ofs)
         {
             List<Order> listView = null;
             try
@@ -17,7 +17,7 @@ namespace RESTAURANT.API.DAL.Services
                 bool flag = _db.Configuration.ProxyCreationEnabled;
                 _db.Configuration.ProxyCreationEnabled = false;
                 //listView = _db.Orders.Include(x => x.Details).ToList();
-                listView = _db.Orders.ToList();
+                listView = _db.Orders.Where(x=>x.OfsKey==ofs).ToList();
                 _db.Configuration.ProxyCreationEnabled = flag;
             }
             catch (System.Exception ex)

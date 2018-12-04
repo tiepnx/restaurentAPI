@@ -14,6 +14,7 @@ namespace RESTAURANT.API.DAL
         System.Nullable<DateTime> Modified { get; set; }
         System.Nullable<DateTime> Created { get; set; }
         System.Nullable<Guid> RowGuid { get; set; }
+        System.Nullable<Guid> OfsKey { get; set; }
         string CreatedBy { get; set; }
         string ModifiedBy { get; set; }
         System.Nullable<Boolean> Deleted { get; set; }

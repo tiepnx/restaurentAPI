@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -7,12 +8,12 @@ namespace RESTAURANT.API.DAL.Services
     public class KindService : GenericService<Kind>
     {
 
-        public List<Kind> GetList()
+        public List<Kind> GetList(Guid ofs)
         {
             List<Kind> items = null;
             try
             {
-                items = _db.Kind.ToList();
+                items = _db.Kind.Where(x=>x.OfsKey == ofs).ToList();
             }
             catch (System.Exception ex)
             {
