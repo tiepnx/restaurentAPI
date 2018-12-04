@@ -34,7 +34,7 @@ namespace RESTAURANT.API.API
         {
             var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
             int? id = null;
-            item.RowGuid = ofs;
+            item.OfsKey = ofs;
             using (StatusService svc = new StatusService())
             {
                 id = svc.Insert(item, HttpContext.Current.User.Identity.Name);

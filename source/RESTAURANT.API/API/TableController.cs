@@ -1,8 +1,11 @@
 ﻿using RESTAURANT.API.DAL;
 using RESTAURANT.API.DAL.Services;
+using RESTAURANT.API.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -20,7 +23,8 @@ namespace RESTAURANT.API.API
 
             using (TableService tsv = new TableService())
             {
-                items = tsv.GetList();
+                var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
+                items = tsv.GetList(ofs);
             }
             return Ok(new { items });
         }
@@ -29,7 +33,8 @@ namespace RESTAURANT.API.API
         public IHttpActionResult Post(Table item)
         {
             int? id = null;
-            
+            var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
+            item.OfsKey = ofs;
             using (TableService tsv = new TableService())
             {
                 id = tsv.Insert(item, HttpContext.Current.User.Identity.Name);
