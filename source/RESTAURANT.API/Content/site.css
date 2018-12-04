@@ -1,6 +1,16 @@
 ﻿header.navbar{padding:0}
 .t5.container-fluid.navbar{padding: 0; border-bottom: 2px solid #962222}
-.t5 .navbar-brand{font-size: 13pt}
+.t5.footer {
+    border-top: 2px solid #962222;
+    min-height: 70px;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #222;
+    color: white;
+}
+.t5 .navbar-brand {
+    font-size: 13pt
+}
 .t5 .home{margin-left: -15px; margin-right:-15px}
 .t5 .home .section-1{
     background: url('images/bg2.jpg');
