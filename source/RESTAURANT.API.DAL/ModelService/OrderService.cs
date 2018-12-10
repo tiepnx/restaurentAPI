@@ -47,11 +47,19 @@ namespace RESTAURANT.API.DAL.Services
             Guid? rowGuid = null;
             try
             {
+                bool flag = _db.Configuration.ProxyCreationEnabled;
+                _db.Configuration.ProxyCreationEnabled = false;
                 AddUserProperty(ref item, userName);
                 _db.Entry(item.Table).State = EntityState.Unchanged;
                 _db.Entry(item.Status).State = EntityState.Unchanged;
-                //_db.Entry(item.Details).State = EntityState.Unchanged;
+                //_db.Entry(item.Details).State = EntityState.Unchanged;               
+                //https://itq.nl/code-first-entity-framework-additional-properties-on-many-to-many-join-tables/
+                foreach (var itm in item.Details)
+                {
+                    _db.Entry(itm).State = EntityState.Unchanged;
+                }
                 SaveChanges();
+                _db.Configuration.ProxyCreationEnabled = flag;
                 rowGuid = item.RowGuid;
             }
             catch (System.Exception ex)

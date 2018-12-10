@@ -15,8 +15,8 @@ namespace RESTAURANT.API.API
     public class OrderController: ApiController
     {
         [HttpGet]
-        [Route("items")]
         [Authorize]
+        [Route("items")]        
         public IHttpActionResult Gets()
         {
             List<Order> items = null;

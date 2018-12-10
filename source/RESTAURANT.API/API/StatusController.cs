@@ -14,9 +14,9 @@ namespace RESTAURANT.API.API
     [RoutePrefix("api/status")]
     public class StatusController: ApiController
     {
-        [HttpGet]
-        [Route("items")]
+        [HttpGet]        
         [Authorize]
+        [Route("items")]
         public IHttpActionResult GetList()
         {
             List<Status> items = null;

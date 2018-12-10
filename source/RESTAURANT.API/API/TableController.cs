@@ -15,8 +15,8 @@ namespace RESTAURANT.API.API
     public class TableController : ApiController
     {
         [HttpGet]
+        [Authorize]
         [Route("items")]
-
         public IHttpActionResult GetList()
         {
             List<Table> items = null;

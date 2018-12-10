@@ -11,7 +11,7 @@ namespace RESTAURANT.API.DAL
         [ForeignKey("Kind")]
         public int KindId { get; set; }
         public virtual Kind Kind { get; set; }
-        public string JsonExcept { get; set; }
-        public string JsonUtility { get; set; }
+        //public string JsonExcept { get; set; }
+        //public string JsonUtility { get; set; }
     }
 }
