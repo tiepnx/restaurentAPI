@@ -56,7 +56,8 @@ namespace RESTAURANT.API.DAL.Services
                 //https://itq.nl/code-first-entity-framework-additional-properties-on-many-to-many-join-tables/
                 foreach (var itm in item.Details)
                 {
-                    _db.Entry(itm).State = EntityState.Unchanged;
+                    _db.Entry(itm.Category).State = EntityState.Unchanged;
+                    _db.Entry(itm.Kind).State = EntityState.Unchanged;
                 }
                 SaveChanges();
                 _db.Configuration.ProxyCreationEnabled = flag;

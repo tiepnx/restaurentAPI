@@ -1,4 +1,5 @@
-﻿using RESTAURANT.API.DAL;
+﻿using RESTAURANT.API.App_Start;
+using RESTAURANT.API.DAL;
 using RESTAURANT.API.DAL.Services;
 using RESTAURANT.API.helpers;
 using System;
@@ -52,6 +53,7 @@ namespace RESTAURANT.API.API
             {
                 rowGuid = svc.Insert(item, HttpContext.Current.User.Identity.Name);
             }
+            NotificationHub.AddOrder(ofs.ToString(), rowGuid.ToString());
             return Ok(new { rowGuid });
         }
     }
