@@ -25,9 +25,9 @@ namespace RESTAURANT.API.App_Start
             Clients.All.hello(message);
             return message;
         }
-        public static void AddOrder(string client, string key)
+        public static void AddOrder(string client, string userName, string key)
         {
-            hubContext.Clients.All.addOrder(client, key);
+            hubContext.Clients.All.addOrder(client, userName, key);
         }
     }
 }

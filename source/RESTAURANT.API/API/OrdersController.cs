@@ -46,15 +46,29 @@ namespace RESTAURANT.API.API
         [HttpPost]
         public IHttpActionResult Post(Order item)
         {
-            Guid? rowGuid = null;
             var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
             item.OfsKey = ofs;
             using (OrderService svc = new OrderService())
             {
-                rowGuid = svc.Insert(item, HttpContext.Current.User.Identity.Name);
+                item = svc.Insert(item, HttpContext.Current.User.Identity.Name);
             }
-            NotificationHub.AddOrder(ofs.ToString(), rowGuid.ToString());
-            return Ok(new { rowGuid });
+            NotificationHub.AddOrder(ofs.ToString(), item.CreatedBy, item.RowGuid.Value.ToString());
+            return Ok(new {
+                item.RowGuid, item.CreatedBy,item.Title
+            });
+        }
+        [Authorize]
+        [HttpDelete]
+        [Route("{rowId}")]
+        public IHttpActionResult Delete(Guid rowId)
+        {
+            bool result = false;
+            using (OrderService svc = new OrderService())
+            {
+                var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
+                result = svc.Delete(ofs, rowId, HttpContext.Current.User.Identity.Name);
+            }
+            return Ok(new { result });
         }
     }
 }

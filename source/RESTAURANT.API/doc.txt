@@ -20,3 +20,9 @@ https://www.tutorialspoint.com/entity_framework/entity_framework_code_first_migr
 https://weblog.west-wind.com/posts/2016/Jan/13/Resetting-Entity-Framework-Migrations-to-a-clean-Slate#Summary
 Using Entity Framework With an Existing Database: Data Access
 https://www.red-gate.com/simple-talk/dotnet/net-framework/using-entity-framework-with-an-existing-database-data-access/
+
+entity
+http://www.entityframeworktutorial.net/EntityFramework4.3/raw-sql-query-in-entity-framework.aspx
+https://www.tektutorialshub.com/data-annotations-foreignkey-attribute-entity-framework/
+
+https://docs.microsoft.com/en-us/ef/core/modeling/relationships

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -43,7 +45,7 @@ namespace RESTAURANT.API.DAL.Services
             {
                 if (item == null)
                     return false;
-                var obj = ParseToItem(item, userName);
+                var obj = ParseToItem(item.OfsKey.Value, item.RowGuid.Value, userName);
                     SaveChanges();
                     rs = true;
 
@@ -54,12 +56,15 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(int itemId, string userName)
+        public bool Delete(Guid ofs, Guid rowId, string userName)
         {
             bool rs = false;
             try
             {
-                Delete(itemId, userName);
+                Detail dt = ParseToItem(ofs, rowId, userName);
+                dt.Deleted = true;
+                base.Insert(ref dt, userName);
+                _db.Entry(dt).State = EntityState.Modified;
                 SaveChanges();
                 rs = true;
             }
@@ -69,48 +74,11 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        internal Detail ParseToItem(Detail dto, string userName)
+        internal Detail ParseToItem(Guid ofs, Guid rowId, string userName)
         {
-            if (dto == null) return null;
-            Detail entity = null;
-            if (dto.ID != 0)
-            {
-                entity = _db.Details.SingleOrDefault(x => x.ID == dto.ID);
-                if (entity == null)
-                {
-                    return dto;
-                }
-            }
+            if (rowId == Guid.Empty) return null;
+            Detail entity = _db.Details.SingleOrDefault(x => x.OfsKey == ofs && x.RowGuid == rowId);
             return entity;
-        }
-
-        public bool  Submit(List<Detail> lst, string userName)
-        {
-            foreach(var item in lst)
-            {
-                if (!_db.Details.Any(x => x.ID == item.ID))
-                {
-                    var ret = item;
-                    Insert(ref ret, userName);
-                }
-            }
-            SaveChanges();
-            return true;
-        }
-
-        public bool ConfirmImportData(string userName)
-        {
-            try
-            {
-                var sUserName = new SqlParameter("@userName", userName);
-                string strSql = "EXEC storename @userName";
-                _db.Database.ExecuteSqlCommand(strSql, sUserName);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
-            return true;
         }
     }
 }

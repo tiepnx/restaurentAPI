@@ -56,17 +56,14 @@ namespace RESTAURANT.API.DAL.Services
             if (id > 0)
             {
                 info = obj.GetType().GetProperty("ModifiedBy");
-                if (info != null)
-                    info.SetValue(obj, userName);
+                if (info != null) info.SetValue(obj, userName);
             }
             else
             {
                 info = obj.GetType().GetProperty("RowGuid");
-                if (info != null)
-                    info.SetValue(obj, Guid.NewGuid());
+                if (info != null) info.SetValue(obj, Guid.NewGuid());
                 info = obj.GetType().GetProperty("CreatedBy");
-                if (info != null)
-                    info.SetValue(obj, userName);
+                if (info != null) info.SetValue(obj, userName);
             }
             if (id <= 0)
                 _table.Add(obj);
@@ -90,7 +87,7 @@ namespace RESTAURANT.API.DAL.Services
             {
                 info = obj.GetType().GetProperty("ModifiedBy");
                 if (info != null)
-                    info.SetValue(obj, userName);
+                    info.SetValue(obj, userName);                
             }
             else
             {
@@ -98,7 +95,6 @@ namespace RESTAURANT.API.DAL.Services
                 if (info != null)
                     info.SetValue(obj, userName);
             }
-
             _table.Add(obj);
         }
         public void Update(T obj)

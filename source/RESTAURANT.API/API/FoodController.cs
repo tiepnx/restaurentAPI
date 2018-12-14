@@ -11,17 +11,17 @@ using System.Web.Http;
 
 namespace RESTAURANT.API.API
 {
-    [RoutePrefix("api/category")]
-    public class CategoryController : ApiController
+    [RoutePrefix("api/food")]
+    public class FoodController : ApiController
     {
         [HttpGet]
         [Route("items")]
         [Authorize]
         public IHttpActionResult GetList()
         {
-            List<Category> items = null;
+            List<Food> items = null;
 
-            using (CategoryService sv = new CategoryService())
+            using (FoodService sv = new FoodService())
             {
                 var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
                 items = sv.GetList(ofs);
@@ -30,12 +30,12 @@ namespace RESTAURANT.API.API
         }
         [Authorize]
         [HttpPost]
-        public IHttpActionResult Post(Category item)
+        public IHttpActionResult Post(Food item)
         {
             int? id = null;
             var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
             item.OfsKey = ofs;
-            using (CategoryService sv = new CategoryService())
+            using (FoodService sv = new FoodService())
             {
                 id = sv.Insert(item, HttpContext.Current.User.Identity.Name);
             }
@@ -43,9 +43,9 @@ namespace RESTAURANT.API.API
         }
         [Authorize]
         [HttpPut]
-        public IHttpActionResult Put(Category item)
+        public IHttpActionResult Put(Food item)
         {
-            using (CategoryService svc = new CategoryService())
+            using (FoodService svc = new FoodService())
             {
                 svc.Update(item, HttpContext.Current.User.Identity.Name);
             }
@@ -54,9 +54,9 @@ namespace RESTAURANT.API.API
         }
         [Authorize]
         [HttpDelete]
-        public IHttpActionResult Delete(Category item)
+        public IHttpActionResult Delete(Food item)
         {
-            using (CategoryService svc = new CategoryService())
+            using (FoodService svc = new FoodService())
             {
                 svc.Delete(item, HttpContext.Current.User.Identity.Name);
             }

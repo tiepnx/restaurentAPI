@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace RESTAURANT.API.DAL.Services
 {
-    public class CategoryService : GenericService<Category>
+    public class FoodService : GenericService<Food>
     {
-        public List<Category> GetList(Guid ofs)
+        public List<Food> GetList(Guid ofs)
         {
-            List<Category> listView = null;
+            List<Food> listView = null;
             try
             {
-                listView = _db.Category.Where(x=>x.OfsKey == ofs).ToList();
+                listView = _db.Food.Where(x=>x.OfsKey == ofs && x.Deleted != true).ToList();
             }
             catch (System.Exception ex)
             {
@@ -21,7 +21,7 @@ namespace RESTAURANT.API.DAL.Services
             return listView;
         }
 
-        public int? Insert(Category item, string userName=null)
+        public int? Insert(Food item, string userName=null)
         {
             int? id = null;
             try
@@ -36,14 +36,14 @@ namespace RESTAURANT.API.DAL.Services
             }
             return id;
         }
-        public bool Update(Category item,string userName=null)
+        public bool Update(Food item,string userName=null)
         {
             bool rs = false;
             try
             {
                 if (item == null) return false;
                 var obj = ParseToItem(item, userName);
-                obj = (Category)MapData(obj, item);
+                obj = (Food)MapData(obj, item);
                 AddUserProperty(ref obj, userName);
                 SaveChanges();
                 rs = true;
@@ -54,7 +54,7 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        public bool Delete(Category item, string userName)
+        public bool Delete(Food item, string userName)
         {
             bool rs = false;
             try
@@ -71,13 +71,13 @@ namespace RESTAURANT.API.DAL.Services
             }
             return rs;
         }
-        internal Category ParseToItem(Category dto, string userName)
+        internal Food ParseToItem(Food dto, string userName)
         {
             if (dto == null) return null;
-            Category entity = null;
+            Food entity = null;
             if (dto.ID != 0)
             {
-                entity = _db.Category.SingleOrDefault(x => x.ID == dto.ID);
+                entity = _db.Food.SingleOrDefault(x => x.ID == dto.ID);
                 if (entity == null)
                 {
                     return dto;

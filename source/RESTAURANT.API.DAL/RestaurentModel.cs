@@ -14,7 +14,10 @@ namespace RESTAURANT.API.DAL
 
 
         public DbSet<Status> Status { get; set; }
-        public DbSet<Category> Category { get; set; }
+        public DbSet<Food> Food { get; set; }
+        public DbSet<FoodGroup> FoodGroup { get; set; }
+        public DbSet<Drink> Drink { get; set; }
+        public DbSet<DrinkGroup> DrinkGroup { get; set; }
         public virtual DbSet<Except> Except { get; set; }
         public DbSet<Kind> Kind { get; set; }
         public virtual DbSet<Utility> Utility { get; set; }
@@ -32,8 +35,11 @@ namespace RESTAURANT.API.DAL
             //    .HasRequired<Status>(o => o.Status)
             //    .WithMany(st => st.Orders)
             //    .HasForeignKey<int>(o => o.StatusId);
-
             
+            //modelBuilder.Entity<Detail>()
+            //     .HasOptional<Kind>(d => d.Kind)
+            //     .WithMany().WillCascadeOnDelete(false);
+            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges()
@@ -59,12 +65,15 @@ namespace RESTAURANT.API.DAL
         private static void UpdateTrackedEntity(DbEntityEntry entityEntry)
         {
             var trackUpdateClass = entityEntry.Entity as IModifiedEntity;
-            if (trackUpdateClass == null) return;
-            trackUpdateClass.Modified = DateTime.UtcNow;
+            if (trackUpdateClass == null) return;            
             if (entityEntry.State == EntityState.Added)
             {
                 //trackUpdateClass.rowguid = Guid.NewGuid();
                 trackUpdateClass.Created = DateTime.UtcNow;
+            }
+            else
+            {
+                trackUpdateClass.Modified = DateTime.UtcNow;
             }
         }
     }

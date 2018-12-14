@@ -240,7 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
-    <Compile Include="API\CategoryController.cs" />
+    <Compile Include="API\FoodController.cs" />
     <Compile Include="API\DetailController.cs" />
     <Compile Include="API\ExceptController.cs" />
     <Compile Include="API\KindController.cs" />

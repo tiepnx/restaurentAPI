@@ -55,12 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="DBModel\Category.cs" />
+    <Compile Include="DBModel\DrinkGroup.cs" />
+    <Compile Include="DBModel\FoodGroup.cs" />
+    <Compile Include="DBModel\Food.cs" />
     <Compile Include="DBModel\Detail.cs" />
     <Compile Include="DBModel\Except.cs" />
     <Compile Include="DBModel\Exception.cs" />
     <Compile Include="DBModel\Kind.cs" />
     <Compile Include="DBModel\OFS.cs" />
+    <Compile Include="DBModel\Drink.cs" />
     <Compile Include="DBModel\Order.cs" />
     <Compile Include="DBModel\RestaurantBase.cs" />
     <Compile Include="DBModel\Status.cs" />
@@ -69,7 +72,7 @@
     <Compile Include="DBModel\Utility.cs" />
     <Compile Include="IModifiedEntity.cs" />
     <Compile Include="ModelService\OFSServices.cs" />
-    <Compile Include="ModelService\CategoryService.cs" />
+    <Compile Include="ModelService\FoodService.cs" />
     <Compile Include="ModelService\DetailService.cs" />
     <Compile Include="ModelService\ExceptService.cs" />
     <Compile Include="ModelService\GenericService.cs" />
