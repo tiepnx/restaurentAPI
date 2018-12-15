@@ -26,3 +26,8 @@ http://www.entityframeworktutorial.net/EntityFramework4.3/raw-sql-query-in-entit
 https://www.tektutorialshub.com/data-annotations-foreignkey-attribute-entity-framework/
 
 https://docs.microsoft.com/en-us/ef/core/modeling/relationships
+
+
+react
+https://javascriptplayground.com/functional-stateless-components-react/
+https://code.tutsplus.com/tutorials/stateful-vs-stateless-functional-components-in-react--cms-29541
