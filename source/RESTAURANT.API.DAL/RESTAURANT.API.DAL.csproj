@@ -71,6 +71,7 @@
     <Compile Include="DBModel\Type.cs" />
     <Compile Include="DBModel\Utility.cs" />
     <Compile Include="IModifiedEntity.cs" />
+    <Compile Include="ModelService\FoodGroupService.cs" />
     <Compile Include="ModelService\OFSServices.cs" />
     <Compile Include="ModelService\FoodService.cs" />
     <Compile Include="ModelService\DetailService.cs" />
