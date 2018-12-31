@@ -35,10 +35,10 @@ namespace RESTAURANT.API.API
         public IHttpActionResult Get(Guid rowId)
         {
             Order item = null;
-
+            var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
             using (OrderService svc = new OrderService())
             {
-                item = svc.Get(rowId);
+                item = svc.Get(ofs, rowId);
             }
             return Ok(new { item });
         }
@@ -56,6 +56,19 @@ namespace RESTAURANT.API.API
             return Ok(new {
                 item.RowGuid, item.CreatedBy,item.Title
             });
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("items/{rowId}")]
+        public IHttpActionResult UpdateStatus([FromUri]Guid rowId, [FromBody]int statusId)
+        {
+            var ofs = Common.GetOFSKey(Request.GetRequestContext().Principal as ClaimsPrincipal);
+            bool flag = false;
+            using(OrderService svc = new OrderService())
+            {
+                flag = svc.UpdateStatus(ofs, rowId, HttpContext.Current.User.Identity.Name, statusId);
+            }
+            return Ok(flag);
         }
         [Authorize]
         [HttpDelete]

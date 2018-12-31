@@ -55,8 +55,8 @@ namespace RESTAURANT.API
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(timeout),
-                Provider = new SIAMAuthorizationProvider(),
-                RefreshTokenProvider = new SIAMRefreshTokenProvider(),
+                Provider = new T5AuthorizationProvider(),
+                RefreshTokenProvider = new T5RefreshTokenProvider(),
             };
 
             // Token Generation

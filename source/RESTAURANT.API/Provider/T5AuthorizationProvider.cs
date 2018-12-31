@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RESTAURANT.API.Provider
 {
-    public class SIAMAuthorizationProvider : OAuthAuthorizationServerProvider
+    public class T5AuthorizationProvider : OAuthAuthorizationServerProvider
     {
         //public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         //{

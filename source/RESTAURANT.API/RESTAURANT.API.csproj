@@ -262,15 +262,13 @@
     <Compile Include="helpers\Common.cs" />
     <Compile Include="helpers\CustomResponseHandler.cs" />
     <Compile Include="Models\RestaurentUser.cs" />
-    <Compile Include="Models\CheckLotNumber.cs" />
-    <Compile Include="Models\G_1.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Provider\SIAMRefreshTokenProvider.cs" />
-    <Compile Include="Provider\SIAMAuthorizationProvider.cs" />
+    <Compile Include="Provider\T5RefreshTokenProvider.cs" />
+    <Compile Include="Provider\T5AuthorizationProvider.cs" />
     <Compile Include="Models\ApplicationTypes.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\RefreshToken.cs" />

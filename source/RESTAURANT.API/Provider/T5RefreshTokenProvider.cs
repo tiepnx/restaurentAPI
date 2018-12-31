@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RESTAURANT.API.Provider
 {
-    public class SIAMRefreshTokenProvider : IAuthenticationTokenProvider
+    public class T5RefreshTokenProvider : IAuthenticationTokenProvider
     {
         public void Create(AuthenticationTokenCreateContext context)
         {

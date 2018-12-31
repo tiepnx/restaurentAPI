@@ -2,6 +2,16 @@
 http://ericsmasal.com/2018/05/28/customize-asp-net-cores-identityuser/
 https://stackoverflow.com/questions/42791416/owin-claims-add-multiple-claimtypes-role
 
+C# keywords
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async
+
+webApi
+http://bitoftech.net/2013/12/03/enforce-https-asp-net-web-api-basic-authentication/
+http://www.tutorialsteacher.com/webapi/web-api-formatters
+
+//token
+http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/
+
 react
 https://decembersoft.com/posts/what-is-the-right-way-to-do-asynchronous-operations-in-redux/
 https://viblo.asia/p/redux-middleware-redux-saga-gGJ59X7jlX2
