@@ -41,14 +41,14 @@ namespace RESTAURANT.API.DAL.Services
             }
             return listView;
         }
-        public Order Get(Guid rowId)
+        public Order Get(Guid ofs, Guid rowId)
         {
             Order itm = null;
             try
             {
                 bool flag = _db.Configuration.ProxyCreationEnabled;
                 _db.Configuration.ProxyCreationEnabled = false;               
-                itm = _db.Orders.Where(x=>x.Deleted != true && x.RowGuid == rowId).Include(x => x.Details).SingleOrDefault();
+                itm = _db.Orders.Where(x=>x.Deleted != true && x.RowGuid == rowId && x.OfsKey==ofs).Include(x => x.Details).SingleOrDefault();
                 itm.Details.RemoveAll(x => x.Deleted == true);
                 _db.Configuration.ProxyCreationEnabled = flag;
             }
@@ -57,6 +57,23 @@ namespace RESTAURANT.API.DAL.Services
                 throw ex;
             }
             return itm;
+        }
+        public bool UpdateStatus(Guid Ofs, Guid rowId, string userName, int statusId)
+        {
+            Order itm = Get(Ofs, rowId);
+            bool flag = false;
+            if(itm != null)
+            {
+                
+                AddUserProperty(ref itm, userName);
+                itm.StatusId = statusId;
+                bool flagProxy = _db.Configuration.ProxyCreationEnabled;
+                _db.Configuration.ProxyCreationEnabled = false;
+                _db.SaveChanges();
+                _db.Configuration.ProxyCreationEnabled = flagProxy;
+                flag = true;
+            }
+            return flag;
         }
         public Order Insert(Order item, string userName=null)
         {
