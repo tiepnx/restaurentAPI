@@ -16,11 +16,6 @@ namespace RESTAURANT.API.DAL
         public string Title { get; set; }
         [StringLength(2048)]
         public string Note { get; set; }
-        //public string CreatedBy { get; set; }
-        //public System.Nullable<DateTime> Created { get; set; }
-        //public string ModifiedBy { get; set; }
-        //public System.Nullable<DateTime> Modified { get; set; }
-        //public System.Nullable<Boolean> Deleted { get; set; }
         public virtual System.Nullable<DateTime> Modified { get; set; }
         public virtual System.Nullable<DateTime> Created { get; set; }
         [Column(Order = 3)]
