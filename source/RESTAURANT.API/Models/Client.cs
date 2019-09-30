@@ -1,7 +1,7 @@
 ﻿using RESTAURANT.API.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace RESTAURANT.API.Entities
+namespace RESTAURANT.API.Models
 {
     public class Client
     {

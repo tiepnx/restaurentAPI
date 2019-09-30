@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using RESTAURANT.API.Entities;
 using RESTAURANT.API.Models;
 using System;
 using System.Data.Entity;

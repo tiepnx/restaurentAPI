@@ -270,8 +270,8 @@
     <Compile Include="Provider\T5RefreshTokenProvider.cs" />
     <Compile Include="Provider\T5AuthorizationProvider.cs" />
     <Compile Include="Models\ApplicationTypes.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\RefreshToken.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="AppCode\UserModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -317,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ext\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

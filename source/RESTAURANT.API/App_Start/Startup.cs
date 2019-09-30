@@ -14,6 +14,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using RESTAURANT.API.Models;
+using System.Linq;
 
 [assembly: OwinStartup("T5", typeof(RESTAURANT.API.Startup))]
 
@@ -37,7 +38,9 @@ namespace RESTAURANT.API
                 var hubConfiguration = new HubConfiguration { };
                 map.RunSignalR(hubConfiguration);
             });
-            createRolesandUsers();
+            CreateClientDefault();
+            CreateRolesDefault();
+            CreateUserDefault();
         }
         public void ConfigureOAuth(IAppBuilder app)
         {
@@ -64,54 +67,84 @@ namespace RESTAURANT.API
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
         }
-        private void createRolesandUsers()
+        
+        private void CreateClientDefault()
         {
-            AuthContext context = new AuthContext();
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<RestaurentUser>(new UserStore<RestaurentUser>(context));
-
-            // creating Creating Manager role
-            if (!roleManager.RoleExists("Admin"))
+            using (AuthContext ctx = new AuthContext())
             {
-
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
+                //https://entityframework.net/as-no-tracking
+                var client = ctx.Clients.AsNoTracking().Where(x => x.Id == "web").SingleOrDefault();
+                if (client == null)
+                {
+                    ctx.Clients.Add(new Client
+                    {
+                        Id = "web",
+                        Name = "web",
+                        Secret = Guid.NewGuid().ToString().ToLower(),
+                        ApplicationType = ApplicationTypes.JavaScript,
+                        RefreshTokenLifeTime = 150,
+                        Active = true,
+                        AllowedOrigin = "*"
+                    });
+                    ctx.SaveChanges();
+                }
             }
-
-            // creating Creating Employee role
-            if (!roleManager.RoleExists("Employee"))
+        }
+        private void CreateRolesDefault()
+        {
+            using (AuthContext context = new AuthContext())
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
-                roleManager.Create(role);
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+                if (!roleManager.RoleExists("SuperUser"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "SuperUser";
+                    roleManager.Create(role);
+                }
+                // creating Creating Manager role
+                if (!roleManager.RoleExists("Admin"))
+                {
+
+                    var role = new IdentityRole();
+                    role.Name = "Admin";
+                    roleManager.Create(role);
+                }
+
+                // creating Creating Employee role
+                if (!roleManager.RoleExists("User"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "User";
+                    roleManager.Create(role);
+                }
             }
-            // In Startup iam creating first Admin Role and creating a default Admin User
-            if (!roleManager.RoleExists("SuperUser"))
+        }
+        private void CreateUserDefault()
+        {
+            using (AuthContext context = new AuthContext())
             {
-
-                // first we create Admin rool
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "SuperUser";
-                roleManager.Create(role);
-
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var UserManager = new UserManager<RestaurentUser>(new UserStore<RestaurentUser>(context));
+                string userPWD = "pass@word1";
                 //Here we create a Admin super user who will maintain the website                        
-                var user = new RestaurentUser {
+                var user = new RestaurentUser
+                {
                     UserName = "SuperAdmin",
                     Email = "xuantiepnguyen@gmail.com",
-                    CreatedDate = DateTime.Now
+                    FullName = "SuperAdmin",
+                    Created = DateTime.Now,
+                    CreatedBy = "System",
+                    Modified = DateTime.Now,
+                    ModifiedBy = "System"
                 };
-                
-
-                string userPWD = "pass@word1";
                 var chkUser = UserManager.Create(user, userPWD);
 
                 //Add default User to Role Admin
                 if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "SuperUser");
-                    UserManager.AddToRole(user.Id, "Employee");
+                    UserManager.AddToRole(user.Id, "User");
                     UserManager.AddToRole(user.Id, "Admin");
                 }
             }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using RESTAURANT.API.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using RESTAURANT.API.Models;

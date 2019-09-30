@@ -4,7 +4,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 //using RESTAURANT.API.DAL.Services;
 using RESTAURANT.API.AppCode;
-using RESTAURANT.API.Entities;
 using RESTAURANT.API.Models;
 using System.Collections.Generic;
 using System.Security.Claims;

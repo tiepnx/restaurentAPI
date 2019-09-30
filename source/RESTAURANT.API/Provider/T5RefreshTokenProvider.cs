@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin.Security.Infrastructure;
 using RESTAURANT.API.AppCode;
-using RESTAURANT.API.Entities;
+using RESTAURANT.API.Models;
 using System;
 using System.Threading.Tasks;
 
