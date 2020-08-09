@@ -84,6 +84,7 @@
     <Compile Include="ModelService\TableService.cs" />
     <Compile Include="ModelService\UtilityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestaurentCtxInitializer.cs" />
     <Compile Include="RestaurentModel.cs" />
   </ItemGroup>
   <ItemGroup>

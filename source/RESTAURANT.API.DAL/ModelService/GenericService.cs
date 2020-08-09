@@ -8,16 +8,16 @@ namespace RESTAURANT.API.DAL.Services
 {
     public class GenericService<T> : IDisposable, IGenericService<T> where T : class
     {
-        protected RestaurentModel _db { get; set; }
+        protected RestaurentCtx _db { get; set; }
         protected DbSet<T> _table = null;
 
         public GenericService()
         {
-            _db = new RestaurentModel();
+            _db = new RestaurentCtx();
             _table = _db.Set<T>();
         }
 
-        public GenericService(RestaurentModel db)
+        public GenericService(RestaurentCtx db)
         {
             _db = db;
             _table = _db.Set<T>();

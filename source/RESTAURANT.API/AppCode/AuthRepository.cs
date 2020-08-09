@@ -46,7 +46,10 @@ namespace RESTAURANT.API.AppCode
             var result = await _userManager.CreateAsync(user, userModel.Password);
             _userManager.AddToRole(user.Id, "Admin");
             user.OFSKey = ofsKey;
-            OFS ofs = new OFS(ofsKey);
+            OFS ofs = new OFS
+            {
+                OfsKey = ofsKey
+            };
             OFSService ofsSv = new OFSService();
             ofsSv.Insert(ofs, user.UserName);
             return result;

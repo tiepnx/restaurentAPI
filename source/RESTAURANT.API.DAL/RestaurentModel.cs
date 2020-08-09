@@ -5,11 +5,13 @@ namespace RESTAURANT.API.DAL
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
-    public partial class RestaurentModel : DbContext
+    public partial class RestaurentCtx : DbContext
     {
-        public RestaurentModel()
+        public RestaurentCtx()
             : base("name=T5Context")
         {
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<RestaurentCtx>());
+            Database.SetInitializer(new RestaurentCtxInitializer());
         }
 
 

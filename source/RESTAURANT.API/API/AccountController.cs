@@ -13,7 +13,7 @@ namespace RESTAURANT.API
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
-        protected RestaurentModel _db { get; set; }
+        protected RestaurentCtx _db { get; set; }
         public AccountController()
         {
             _repo = new AuthRepository();

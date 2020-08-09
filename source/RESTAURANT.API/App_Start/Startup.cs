@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using RESTAURANT.API.Models;
 using System.Linq;
+using RESTAURANT.API.DAL;
 
 [assembly: OwinStartup("T5", typeof(RESTAURANT.API.Startup))]
 
@@ -38,6 +39,7 @@ namespace RESTAURANT.API
                 var hubConfiguration = new HubConfiguration { };
                 map.RunSignalR(hubConfiguration);
             });
+            new RestaurentCtx();
             CreateClientDefault();
             CreateRolesDefault();
             CreateUserDefault();
